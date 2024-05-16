@@ -7,64 +7,51 @@
 // 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
 int solution(const char* babbling[], size_t babbling_len) {
 
-	int answer = 0;
+    int answer = 0;
 
-	char** bab_example = (char**)malloc(sizeof(char*) * 4);
-	for(int i = 0; i < 4; i++)
-	{
-		bab_example[i] = (char*)malloc(sizeof(char) * 4);
-	}
-	bab_example[0] = "aya";
-	bab_example[1] = "ye";
-	bab_example[2] = "ma";
-	bab_example[3] = "woo";
+    char** bab_example = (char**)malloc(sizeof(char*) * 4);
+    for(int i = 0; i < 4; i++)
+    {
+        bab_example[i] = (char*)malloc(sizeof(char) * 4);
+    }
+    strcpy(bab_example[0], "aya");
+    strcpy(bab_example[1], "ye");
+    strcpy(bab_example[2], "ma");
+    strcpy(bab_example[3], "woo");
 
-#if 0
-	bab_example[0] = strdup("aya");
-	bab_example[1] = strdup("ye");
-	bab_example[2] = strdup("woo");
-	bab_example[3] = strdup("ma");
-#endif
+    for(int i = 0; i < babbling_len; i++)
+    {
+        char* temp_idx = NULL; 
+        int idx = 0;
+        int exam_idx = 0;
+        bool ret = true;
 
-	for(int i = 0; i < babbling_len; i++)
-	{
-		char* temp_idx = NULL;
-		int idx = 0;
-		int touchstone = 0;
-		int exam_idx = 0;
-		bool ret = true;
-
-		for(int j = 0; j < strlen(babbling[i]); j += idx)
-		{	
-			for(exam_idx = 0; exam_idx < 4; exam_idx++)
-			{
-				temp_idx = strstr(babbling[i] + j, bab_example[exam_idx]);
-				if(temp_idx != NULL)
-                {
+        for(int j = 0; j < strlen(babbling[i]); j += idx)
+        {   
+            for(exam_idx = 0; exam_idx < 4; exam_idx++)
+            {
+				bool right = false;
+                temp_idx = strstr(babbling[i] + j, bab_example[exam_idx]);
+                if(temp_idx == babbling[i] + j)
+                {   
+                    idx = strlen(bab_example[exam_idx]);
+                    right = true;
                     break;
                 }
-			}
-			if(temp_idx == NULL)
+            }
+			if(!right)
 			{
 				ret = false;
 				break;
 			}
-			idx = strlen(bab_example[exam_idx]);
-			
-			if(touchstone != (temp_idx - babbling[i]))
-			{
-				ret = false;
-				break;
-			}
+        }
 
-			touchstone += idx;
-		} 
-
-		if(ret)
-		{
-			answer++;
-		}
-	}
+        if(ret)
+        {
+            answer++;
+        }
+    }
 
     return answer;
 }
+
