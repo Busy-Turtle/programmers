@@ -28,6 +28,3 @@ char* solution(int food[], size_t food_len) {
 
     return answer;
 }
-
-
-
