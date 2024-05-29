@@ -4,16 +4,18 @@
 #include <string.h>
 
 char* solution(const char* myString, const char* pat) {
-    char* answer = (char*)malloc(sizeof(char) * strlen(myString));
+    char* answer = (char*)malloc(sizeof(char) * strlen(myString) + 1);
 
-	char* idx = NULL;
-	for(int i = strlen(myString)-1; i >= 0; i--)
-	{
-		if(strcmp(myString + i, pat) == 0)
-		{
-			strncpy(answer, mtString, i+1);
-		}
-	}	
-
+    int i = strlen(myString) - 1;
+    for(i; i >= 0; i--)
+    {
+        if(strncmp(myString + i, pat, strlen(pat)) == 0)
+        {
+            strncpy(answer, myString, (i + strlen(pat)));
+            break;
+        }
+    }
+    answer[i + strlen(pat)] = '\0';
+    
     return answer;
 }
