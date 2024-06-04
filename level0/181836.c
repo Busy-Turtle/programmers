@@ -21,7 +21,7 @@ char** solution(const char* picture[], size_t picture_len, int k) {
 		{
 			for(int m = (j * k); m < (j * k) + k; m++)
 			{
-				answer[i][m] = picture[i][j];
+				answer[i][m] = picture[i / k][j];
 			}
 		}
 		answer[i][total_cols] = '\0';
